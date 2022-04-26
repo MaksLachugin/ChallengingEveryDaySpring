@@ -1,8 +1,6 @@
-package ru.vsu.cs.lachugin.entities;
+package ru.vsu.cs.lachugin.models;
 
-import ru.vsu.cs.lachugin.services.ClientService;
-
-public class ClientEntity {
+public class Client {
     private Long id;
     private String name;
     private String pass;
@@ -31,6 +29,6 @@ public class ClientEntity {
         this.pass = pass;
     }
 
-    public ClientEntity() {
+    public Client() {
     }
 }

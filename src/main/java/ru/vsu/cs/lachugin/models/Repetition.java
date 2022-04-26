@@ -1,8 +1,8 @@
-package ru.vsu.cs.lachugin.entities;
+package ru.vsu.cs.lachugin.models;
 
 import java.util.Date;
 
-public class RepetitionEntity {
+public class Repetition {
     private Long id;
     private Long challenge_id;
     private Long count;
@@ -40,6 +40,6 @@ public class RepetitionEntity {
         this.date = date;
     }
 
-    public RepetitionEntity() {
+    public Repetition() {
     }
 }

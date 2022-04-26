@@ -1,11 +1,8 @@
-package ru.vsu.cs.lachugin.dto;
-
-import ru.vsu.cs.lachugin.entities.ButtonEntity;
-import ru.vsu.cs.lachugin.entities.ChallengeEntity;
+package ru.vsu.cs.lachugin.models;
 
 import java.util.Date;
 
-public class ChallengeDTO {
+public class Challenge {
     private Long id;
     private Long user_id;
     private String name;
@@ -14,19 +11,7 @@ public class ChallengeDTO {
     private Date start_date;
     private Date finish_date;
 
-    public static ChallengeDTO toModel(ChallengeEntity challengeEntity) {
-        ChallengeDTO challengeDTO = new ChallengeDTO();
-        challengeDTO.setId(challengeEntity.getId());
-        challengeDTO.setUser_id(challengeEntity.getUser_id());
-        challengeDTO.setName(challengeEntity.getName());
-        challengeDTO.setNeed(challengeEntity.getNeed());
-        challengeDTO.setDays(challengeEntity.getDays());
-        challengeDTO.setStart_date(challengeEntity.getStart_date());
-        challengeDTO.setFinish_date(challengeEntity.getFinish_date());
-        return challengeDTO;
-    }
-
-    public ChallengeDTO() {
+    public Challenge() {
     }
 
     public Long getId() {
