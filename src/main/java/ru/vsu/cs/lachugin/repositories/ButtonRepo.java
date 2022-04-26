@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ButtonRepo {
     ButtonEntity findByName(String name);
-    ButtonEntity findByNum(Long num);
+    ButtonEntity findAllByNum(Long num);
     List<ButtonEntity> findAllByChallenge(ChallengeEntity challengeEntity);
 }
