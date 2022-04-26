@@ -34,10 +34,10 @@ public class ButtonDAO {
         return null;
     }
 
-    public void save(Button person) {
+    public void save(Button button) {
     }
 
-    public void update(int id, Button updatedPerson) {
+    public void update(int id, Button updatedButton) {
     }
 
     public void delete(int id) {
