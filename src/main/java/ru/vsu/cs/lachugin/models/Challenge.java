@@ -1,11 +1,18 @@
 package ru.vsu.cs.lachugin.models;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Challenge {
     private Long id;
     private Long user_id;
+    @NotEmpty(message = "the name of the Challenge should be")
+    @Size(min = 2, max = 50, message = "The name of the Challenge must be from 2 to 50 characters.")
     private String name;
+    @NotEmpty(message = "The number of repetitions should be")
+    @Min(value = 1, message = "The number of repetitions must be greater than zero")
     private Long need;
     private Long days;
     private Date start_date;
