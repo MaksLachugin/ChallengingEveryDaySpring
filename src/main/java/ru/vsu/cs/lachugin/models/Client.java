@@ -1,7 +1,12 @@
 package ru.vsu.cs.lachugin.models;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Client {
     private Long id;
+    @NotEmpty(message = "the name of the Client should be")
+    @Size(min = 2, max = 50, message = "The name of the Client must be from 2 to 50 characters.")
     private String name;
     private String pass;
 

@@ -16,7 +16,7 @@ public class Challenge {
     private Long need;
     private Long days;
     private Date start_date;
-    private Date finish_date;
+
 
     public Challenge() {
     }
@@ -69,11 +69,4 @@ public class Challenge {
         this.start_date = start_date;
     }
 
-    public Date getFinish_date() {
-        return finish_date;
     }
-
-    public void setFinish_date(Date finish_date) {
-        this.finish_date = finish_date;
-    }
-}
