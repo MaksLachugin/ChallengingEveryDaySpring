@@ -8,10 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ChallengeDAO {
-    private static final String URL = "";
-    private static final String USERNAME = "";
-    private static final String PASS = "";
+public class ChallengeDAO extends BaseDAO{
+
     private static Connection connection;
 
     static {

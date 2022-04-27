@@ -1,17 +1,14 @@
 package ru.vsu.cs.lachugin.dao;
 
-import ru.vsu.cs.lachugin.models.Button;
-import ru.vsu.cs.lachugin.models.Client;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
-public class ClientDAO extends BaseDAO{
-
-    private static Connection connection;
-
+public class BaseDAO {
+    static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+    static final String USERNAME = "postgres";
+    static final String PASS = "psw";
+    static Connection connection;
     static {
         try {
             Class.forName("org.postgresql.Driver");
@@ -23,23 +20,6 @@ public class ClientDAO extends BaseDAO{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    public List<Client> index() {
-        return null;
-    }
-
-    public Client show(int id) {
-        return null;
-    }
-
-    public void save(Client client) {
-    }
-
-    public void update(int id, Client updatedClient) {
-    }
-
-    public void delete(int id) {
-    }
 }
