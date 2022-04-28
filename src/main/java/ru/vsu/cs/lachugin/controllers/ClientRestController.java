@@ -5,9 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.lachugin.dao.ChallengeDAO;
 import ru.vsu.cs.lachugin.dao.ClientDAO;
-import ru.vsu.cs.lachugin.models.Challenge;
 import ru.vsu.cs.lachugin.models.Client;
 
 import javax.validation.Valid;
