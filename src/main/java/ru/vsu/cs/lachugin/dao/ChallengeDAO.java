@@ -24,7 +24,7 @@ public class ChallengeDAO extends BaseDAO {
                 challenge.setName(resultSet.getString("name"));
                 challenge.setNeed(resultSet.getLong("need"));
                 challenge.setDays(resultSet.getLong("days"));
-                challenge.setStart_date(resultSet.getTimestamp("start_date"));
+                challenge.setStart_date(resultSet.getDate("start_date"));
 
                 challenges.add(challenge);
             }
@@ -49,7 +49,7 @@ public class ChallengeDAO extends BaseDAO {
             challenge.setName(resultSet.getString("name"));
             challenge.setNeed(resultSet.getLong("need"));
             challenge.setDays(resultSet.getLong("days"));
-            challenge.setStart_date(resultSet.getTimestamp("start_date"));
+            challenge.setStart_date(resultSet.getDate("start_date"));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -65,7 +65,7 @@ public class ChallengeDAO extends BaseDAO {
             preparedStatement.setString(2, challenge.getName());
             preparedStatement.setLong(3, challenge.getNeed());
             preparedStatement.setLong(4, challenge.getDays());
-            preparedStatement.setTimestamp(5, challenge.getStart_date());
+            preparedStatement.setDate(5, challenge.getStart_date());
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -80,7 +80,7 @@ public class ChallengeDAO extends BaseDAO {
             preparedStatement.setString(2, updatedChallenge.getName());
             preparedStatement.setLong(3, updatedChallenge.getNeed());
             preparedStatement.setLong(4, updatedChallenge.getDays());
-            preparedStatement.setTimestamp(5, updatedChallenge.getStart_date());
+            preparedStatement.setDate(5, updatedChallenge.getStart_date());
             preparedStatement.setLong(6, id);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {

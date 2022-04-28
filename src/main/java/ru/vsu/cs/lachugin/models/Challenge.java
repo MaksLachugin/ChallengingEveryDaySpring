@@ -2,9 +2,9 @@ package ru.vsu.cs.lachugin.models;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 public class Challenge {
     private Long id;
@@ -12,11 +12,11 @@ public class Challenge {
     @NotEmpty(message = "the name of the Challenge should be")
     @Size(min = 2, max = 50, message = "The name of the Challenge must be from 2 to 50 characters.")
     private String name;
-    @NotEmpty(message = "The number of repetitions should be")
+    @NotNull(message = "The number of repetitions should be")
     @Min(value = 1, message = "The number of repetitions must be greater than zero")
     private Long need;
     private Long days;
-    private Timestamp start_date;
+    private Date start_date;
 
 
     public Challenge() {
@@ -62,11 +62,11 @@ public class Challenge {
         this.days = days;
     }
 
-    public Timestamp getStart_date() {
+    public Date getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Timestamp start_date) {
+    public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 

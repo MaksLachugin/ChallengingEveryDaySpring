@@ -41,7 +41,7 @@ public class ChallengeRestController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("button") @Valid Challenge challenge, BindingResult bindingResult) {
+    public String create(@ModelAttribute("challenge") @Valid Challenge challenge, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "challenges/new";
         }
