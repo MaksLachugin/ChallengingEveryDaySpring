@@ -3,11 +3,12 @@ package ru.vsu.cs.lachugin.models;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Challenge {
     private Long id;
-    private Long user_id;
+    private Long client_id;
     @NotEmpty(message = "the name of the Challenge should be")
     @Size(min = 2, max = 50, message = "The name of the Challenge must be from 2 to 50 characters.")
     private String name;
@@ -15,7 +16,7 @@ public class Challenge {
     @Min(value = 1, message = "The number of repetitions must be greater than zero")
     private Long need;
     private Long days;
-    private Date start_date;
+    private Timestamp start_date;
 
 
     public Challenge() {
@@ -29,12 +30,12 @@ public class Challenge {
         this.id = id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getClient_id() {
+        return client_id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setClient_id(Long client_id) {
+        this.client_id = client_id;
     }
 
     public String getName() {
@@ -61,11 +62,11 @@ public class Challenge {
         this.days = days;
     }
 
-    public Date getStart_date() {
+    public Timestamp getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Date start_date) {
+    public void setStart_date(Timestamp start_date) {
         this.start_date = start_date;
     }
 

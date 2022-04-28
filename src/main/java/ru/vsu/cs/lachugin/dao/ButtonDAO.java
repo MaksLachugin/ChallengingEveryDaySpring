@@ -9,8 +9,6 @@ import java.util.List;
 
 @Component
 public class ButtonDAO extends BaseDAO {
-
-
     public List<Button> index() {
         List<Button> buttons = new ArrayList<>();
         try {
@@ -43,10 +41,12 @@ public class ButtonDAO extends BaseDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             button = new Button();
+
             button.setId(resultSet.getLong("id"));
             button.setChallenge_id(resultSet.getLong("challenge_id"));
             button.setName(resultSet.getString("name"));
             button.setNum(resultSet.getLong("num"));
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -57,10 +57,12 @@ public class ButtonDAO extends BaseDAO {
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("INSERT INTO \"Button\" VALUES (DEFAULT, ?, ?, ?)");
+
             preparedStatement.setLong(1, button.getChallenge_id());
             preparedStatement.setString(2, button.getName());
             preparedStatement.setLong(3, button.getNum());
             preparedStatement.executeUpdate();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -70,11 +72,13 @@ public class ButtonDAO extends BaseDAO {
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("UPDATE  \"Button\" Set challenge_id=?,name=?,  num=? where id=?");
+
             preparedStatement.setLong(1, updatedButton.getChallenge_id());
             preparedStatement.setString(2, updatedButton.getName());
             preparedStatement.setLong(3, updatedButton.getNum());
             preparedStatement.setLong(4, id);
             preparedStatement.executeUpdate();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -84,6 +88,7 @@ public class ButtonDAO extends BaseDAO {
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("DELETE FROM \"Button\" where id=?");
+
             preparedStatement.setLong(1, id);
 
             preparedStatement.executeUpdate();

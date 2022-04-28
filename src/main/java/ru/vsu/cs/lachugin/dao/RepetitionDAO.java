@@ -10,22 +10,6 @@ import java.util.List;
 
 public class RepetitionDAO extends BaseDAO {
 
-    private static Connection connection;
-
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASS);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
     public List<Repetition> index() {
         return null;
     }
