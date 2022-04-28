@@ -2,16 +2,13 @@ package ru.vsu.cs.lachugin.models;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 public class Repetition {
     private Long id;
     private Long challenge_id;
-    @NotNull(message = "The count of repetitions should be")
-    @Min(value = 1, message = "The count of repetitions must be greater than zero")
+    @NotEmpty(message = "The number of repetitions should be")
+    @Min(value = 1, message = "The number of repetitions must be greater than zero")
     private Long count;
     private Date date;
 
@@ -46,7 +43,6 @@ public class Repetition {
     public void setDate(Date date) {
         this.date = date;
     }
-
 
     public Repetition() {
     }
