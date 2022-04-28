@@ -56,7 +56,7 @@ public class ChallengeRestController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("challenge") @Valid Challenge challenge, BindingResult bindingResult, @PathVariable("id") int id) {
+    public String update(@ModelAttribute("button") @Valid Challenge challenge, BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "challenges/edit";
         }
