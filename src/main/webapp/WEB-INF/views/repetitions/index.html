@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Repetitions</title>
+</head>
+<body>
+<div th:each="repetition : ${repetitions}">
+    <a th:href="@{/repetitions/{id}(id=${repetition.getId()})}"
+       th:text="${repetition.getDate() + ', ' + repetition.getCount() + ', ' + repetition.getChallenge_id()}">repetition</a>
+
+
+</div>
+<br>
+<hr>
+<a href="repetitions/new">Create new repetition</a>
+</body>
+</html>

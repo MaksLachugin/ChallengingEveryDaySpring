@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update repetition</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/repetitions/{id}(id=${repetition.getId()})}" th:object="${repetition}">
+    <label for="challenge_id">Enter challenge_id: </label>
+    <input type="number" th:field="*{challenge_id}" id="challenge_id"/>
+    <div style="color:red" th:if="${#fields.hasErrors('challenge_id')}" th:errors="*{challenge_id}">Error</div>
+    <br/>
+    <label for="count">Enter count: </label>
+    <input type="number" th:field="*{count}" id="count"/>
+    <div style="color:red" th:if="${#fields.hasErrors('count')}" th:errors="*{count}">Error</div>
+    <br/>
+    <label for="date">Enter date: </label>
+    <input type="date" th:field="*{date}" id="date"/>
+    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Error</div>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+</body>
+</html>

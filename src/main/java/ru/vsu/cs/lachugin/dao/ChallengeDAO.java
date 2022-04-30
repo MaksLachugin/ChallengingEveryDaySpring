@@ -1,5 +1,8 @@
 package ru.vsu.cs.lachugin.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.lachugin.models.Button;
 import ru.vsu.cs.lachugin.models.Challenge;
@@ -7,96 +10,39 @@ import ru.vsu.cs.lachugin.models.Challenge;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
-public class ChallengeDAO extends BaseDAO {
+public class ChallengeDAO {
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public ChallengeDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<Challenge> index() {
-        List<Challenge> challenges = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String SQL = "SELECT * FROM \"Challenge\"";
-            ResultSet resultSet = statement.executeQuery(SQL);
-            while (resultSet.next()) {
-                Challenge challenge = new Challenge();
 
-                challenge.setId(resultSet.getLong("id"));
-                challenge.setClient_id(resultSet.getLong("client_id"));
-                challenge.setName(resultSet.getString("name"));
-                challenge.setNeed(resultSet.getLong("need"));
-                challenge.setDays(resultSet.getLong("days"));
-                challenge.setStart_date(resultSet.getDate("start_date"));
-
-                challenges.add(challenge);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return challenges;
+        return jdbcTemplate.query("SELECT * FROM \"Challenge\"",
+                new BeanPropertyRowMapper<>(Challenge.class));
     }
 
     public Challenge show(int id) {
-        Challenge challenge = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM \"Challenge\" Where id=?");
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            challenge = new Challenge();
-
-            challenge.setId(resultSet.getLong("id"));
-            challenge.setClient_id(resultSet.getLong("client_id"));
-            challenge.setName(resultSet.getString("name"));
-            challenge.setNeed(resultSet.getLong("need"));
-            challenge.setDays(resultSet.getLong("days"));
-            challenge.setStart_date(resultSet.getDate("start_date"));
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return challenge;
+        return jdbcTemplate.query("SELECT * FROM \"Challenge\" Where id=?",
+                new Object[]{id}, new BeanPropertyRowMapper<>(Challenge.class)).stream().findAny().orElse(null);
     }
 
     public void save(Challenge challenge) {
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("INSERT INTO \"Challenge\" VALUES (DEFAULT, ?, ?, ?, ?, ?)");
-            preparedStatement.setLong(1, challenge.getClient_id());
-            preparedStatement.setString(2, challenge.getName());
-            preparedStatement.setLong(3, challenge.getNeed());
-            preparedStatement.setLong(4, challenge.getDays());
-            preparedStatement.setDate(5, challenge.getStart_date());
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        jdbcTemplate.update("INSERT INTO \"Challenge\" VALUES (DEFAULT, ?, ?, ?, ?, ?)",
+                challenge.getClient_id(), challenge.getName(), challenge.getNeed(), challenge.getDays(), challenge.getStart_date());
     }
 
     public void update(int id, Challenge updatedChallenge) {
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("UPDATE  \"Challenge\" Set client_id=?,name=?,  need=?, days=?, start_date=? where id=?");
-            preparedStatement.setLong(1, updatedChallenge.getClient_id());
-            preparedStatement.setString(2, updatedChallenge.getName());
-            preparedStatement.setLong(3, updatedChallenge.getNeed());
-            preparedStatement.setLong(4, updatedChallenge.getDays());
-            preparedStatement.setDate(5, updatedChallenge.getStart_date());
-            preparedStatement.setLong(6, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        jdbcTemplate.update("UPDATE  \"Challenge\" Set client_id=?, name=?,  need=?, days=?, start_date=? where id=?",
+                updatedChallenge.getClient_id(), updatedChallenge.getName(), updatedChallenge.getNeed(),
+                updatedChallenge.getDays(), updatedChallenge.getStart_date(), id);
     }
 
     public void delete(int id) {
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("DELETE FROM \"Challenge\" where id=?");
-            preparedStatement.setLong(1, id);
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        jdbcTemplate.update("DELETE FROM \"Challenge\" where id=?", id);
     }
 }
