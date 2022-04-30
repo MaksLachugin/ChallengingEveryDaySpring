@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buttons</title>
+</head>
+<body>
+<div th:each="button : ${buttons}">
+    <a th:href="@{/buttons/{id}(id=${button.getId()})}"
+       th:text="${button.getName() + ', ' + button.getNum() + ', ' + button.getChallenge_id()}">button</a>
+
+
+</div>
+<br>
+<hr>
+<a href="buttons/new">Create new button</a>
+</body>
+</html>

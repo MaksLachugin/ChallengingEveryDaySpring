@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Button</title>
+</head>
+<body>
+<p th:text="${button.getName() + ', ' + button.getNum()}">VALUE</p>
+<p th:text="${'Challenge: ' + button.getChallenge_id()}">VALUE</p>
+<p th:text="${button.getId()}">VALUE</p>
+<a th:href="@{/buttons/{id}/edit(id=${button.getId()})}">Edit</a>
+<form th:method="DELETE" th:action="@{/buttons/{id}(id=${button.getId()})}">
+  <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

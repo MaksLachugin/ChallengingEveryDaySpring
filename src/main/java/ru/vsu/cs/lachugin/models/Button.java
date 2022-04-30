@@ -1,25 +1,22 @@
-package ru.vsu.cs.lachugin.dto;
+package ru.vsu.cs.lachugin.models;
 
-import ru.vsu.cs.lachugin.entities.ButtonEntity;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import java.util.Set;
-
-public class ButtonDTO {
+public class Button {
     private Long id;
+
     private Long challenge_id;
+    @NotEmpty(message = "the name of the button should be")
+    @Size(min = 2, max = 50, message = "The name of the button must be from 2 to 50 characters.")
     private String name;
+    @NotNull(message = "The number of repetitions should be")
+    @Min(value = 1, message = "The number of repetitions must be greater than zero")
     private Long num;
 
-    public static ButtonDTO toModel(ButtonEntity buttonEntity) {
-        ButtonDTO buttonDTO = new ButtonDTO();
-        buttonDTO.setId(buttonEntity.getId());
-        buttonDTO.setChallenge_id(buttonEntity.getChallenge_id());
-        buttonDTO.setName(buttonEntity.getName());
-        buttonDTO.setNum(buttonEntity.getNum());
-        return buttonDTO;
-    }
-
-    public ButtonDTO() {
+    public Button() {
     }
 
     public Long getId() {

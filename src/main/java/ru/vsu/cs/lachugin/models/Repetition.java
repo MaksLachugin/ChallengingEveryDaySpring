@@ -1,10 +1,14 @@
-package ru.vsu.cs.lachugin.entities;
+package ru.vsu.cs.lachugin.models;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
-public class RepetitionEntity {
+public class Repetition {
     private Long id;
     private Long challenge_id;
+    @NotEmpty(message = "The number of repetitions should be")
+    @Min(value = 1, message = "The number of repetitions must be greater than zero")
     private Long count;
     private Date date;
 
@@ -40,6 +44,6 @@ public class RepetitionEntity {
         this.date = date;
     }
 
-    public RepetitionEntity() {
+    public Repetition() {
     }
 }

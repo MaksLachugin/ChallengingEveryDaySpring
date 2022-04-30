@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/challenges}" th:object="${challenge}">
+    <label for="client_id">Enter client id: </label>
+    <input type="number" th:field="*{client_id}" id="client_id"/>
+    <div style="color:red" th:if="${#fields.hasErrors('client_id')}" th:errors="*{client_id}">Error</div>
+    <br/>
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+    <br/>
+    <label for="need">Enter need: </label>
+    <input type="number" th:field="*{need}" id="need"/>
+    <div style="color:red" th:if="${#fields.hasErrors('need')}" th:errors="*{need}">Error</div>
+    <br/>
+    <label for="days">Enter days: </label>
+    <input type="number" th:field="*{days}" id="days"/>
+    <div style="color:red" th:if="${#fields.hasErrors('days')}" th:errors="*{days}">Error</div>
+    <br/>
+    <label for="start_date">Enter num: </label>
+    <input type="date" th:field="*{start_date}" id="start_date"/>
+    <div style="color:red" th:if="${#fields.hasErrors('start_date')}" th:errors="*{start_date}">Error</div>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>

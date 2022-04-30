@@ -1,17 +1,25 @@
-package ru.vsu.cs.lachugin.entities;
+package ru.vsu.cs.lachugin.models;
 
-import java.util.Date;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Date;
 
-public class ChallengeEntity {
+public class Challenge {
     private Long id;
-    private Long user_id;
+    private Long client_id;
+    @NotEmpty(message = "the name of the Challenge should be")
+    @Size(min = 2, max = 50, message = "The name of the Challenge must be from 2 to 50 characters.")
     private String name;
+    @NotNull(message = "The number of repetitions should be")
+    @Min(value = 1, message = "The number of repetitions must be greater than zero")
     private Long need;
     private Long days;
     private Date start_date;
-    private Date finish_date;
 
-    public ChallengeEntity() {
+
+    public Challenge() {
     }
 
     public Long getId() {
@@ -22,12 +30,12 @@ public class ChallengeEntity {
         this.id = id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getClient_id() {
+        return client_id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setClient_id(Long client_id) {
+        this.client_id = client_id;
     }
 
     public String getName() {
@@ -62,11 +70,4 @@ public class ChallengeEntity {
         this.start_date = start_date;
     }
 
-    public Date getFinish_date() {
-        return finish_date;
     }
-
-    public void setFinish_date(Date finish_date) {
-        this.finish_date = finish_date;
-    }
-}
