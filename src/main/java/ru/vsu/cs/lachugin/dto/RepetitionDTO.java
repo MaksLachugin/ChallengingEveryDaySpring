@@ -1,13 +1,12 @@
 package ru.vsu.cs.lachugin.dto;
 
-import ru.vsu.cs.lachugin.entities.ButtonEntity;
 import ru.vsu.cs.lachugin.entities.RepetitionEntity;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class RepetitionDTO {
     private Long id;
-    private Long challenge_id;
+    private ChallengeDTO challengeDTO;
     private Long count;
     private Date date;
 
@@ -15,7 +14,7 @@ public class RepetitionDTO {
         RepetitionDTO repetitionDTO = new RepetitionDTO();
 
         repetitionDTO.setId(repetitionEntity.getId());
-        repetitionDTO.setChallenge_id(repetitionEntity.getChallenge_id());
+        repetitionDTO.setChallengeDTO(ChallengeDTO.toModel(repetitionEntity.getChallengeEntity()));
         repetitionDTO.setCount(repetitionEntity.getCount());
         repetitionDTO.setDate(repetitionEntity.getDate());
 
@@ -30,12 +29,12 @@ public class RepetitionDTO {
         this.id = id;
     }
 
-    public Long getChallenge_id() {
-        return challenge_id;
+    public ChallengeDTO getChallengeDTO() {
+        return challengeDTO;
     }
 
-    public void setChallenge_id(Long challenge_id) {
-        this.challenge_id = challenge_id;
+    public void setChallengeDTO(ChallengeDTO challengeDTO) {
+        this.challengeDTO = challengeDTO;
     }
 
     public Long getCount() {

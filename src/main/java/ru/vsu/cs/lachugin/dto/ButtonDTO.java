@@ -2,18 +2,16 @@ package ru.vsu.cs.lachugin.dto;
 
 import ru.vsu.cs.lachugin.entities.ButtonEntity;
 
-import java.util.Set;
-
 public class ButtonDTO {
     private Long id;
-    private Long challenge_id;
+    private ChallengeDTO challengeDTO;
     private String name;
     private Long num;
 
     public static ButtonDTO toModel(ButtonEntity buttonEntity) {
         ButtonDTO buttonDTO = new ButtonDTO();
         buttonDTO.setId(buttonEntity.getId());
-        buttonDTO.setChallenge_id(buttonEntity.getChallenge_id());
+        buttonDTO.setChallengeDTO(ChallengeDTO.toModel(buttonEntity.getChallengeEntity()));
         buttonDTO.setName(buttonEntity.getName());
         buttonDTO.setNum(buttonEntity.getNum());
         return buttonDTO;
@@ -30,12 +28,12 @@ public class ButtonDTO {
         this.id = id;
     }
 
-    public Long getChallenge_id() {
-        return challenge_id;
+    public ChallengeDTO getChallengeDTO() {
+        return challengeDTO;
     }
 
-    public void setChallenge_id(Long challenge_id) {
-        this.challenge_id = challenge_id;
+    public void setChallengeDTO(ChallengeDTO challengeDTO) {
+        this.challengeDTO = challengeDTO;
     }
 
     public String getName() {

@@ -1,15 +1,14 @@
 package ru.vsu.cs.lachugin.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ChallengeEntity {
     private Long id;
-    private Long user_id;
+    private ClientEntity clientEntity;
     private String name;
     private Long need;
     private Long days;
-    private Date start_date;
-    private Date finish_date;
+    private Date startDate;
 
     public ChallengeEntity() {
     }
@@ -22,12 +21,12 @@ public class ChallengeEntity {
         this.id = id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public ClientEntity getClientEntity() {
+        return clientEntity;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setClientEntity(ClientEntity clientEntity) {
+        this.clientEntity = clientEntity;
     }
 
     public String getName() {
@@ -54,19 +53,12 @@ public class ChallengeEntity {
         this.days = days;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getFinish_date() {
-        return finish_date;
     }
-
-    public void setFinish_date(Date finish_date) {
-        this.finish_date = finish_date;
-    }
-}

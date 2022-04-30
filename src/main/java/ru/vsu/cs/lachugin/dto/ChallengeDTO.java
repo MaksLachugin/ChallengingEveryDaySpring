@@ -1,28 +1,26 @@
 package ru.vsu.cs.lachugin.dto;
 
-import ru.vsu.cs.lachugin.entities.ButtonEntity;
 import ru.vsu.cs.lachugin.entities.ChallengeEntity;
 
 import java.util.Date;
 
 public class ChallengeDTO {
     private Long id;
-    private Long user_id;
+    private ClientDTO clientDTO;
     private String name;
     private Long need;
     private Long days;
-    private Date start_date;
-    private Date finish_date;
+    private Date startDate;
 
     public static ChallengeDTO toModel(ChallengeEntity challengeEntity) {
         ChallengeDTO challengeDTO = new ChallengeDTO();
         challengeDTO.setId(challengeEntity.getId());
-        challengeDTO.setUser_id(challengeEntity.getUser_id());
+        challengeDTO.setClientDTO(ClientDTO.toModel(challengeEntity.getClientEntity()));
         challengeDTO.setName(challengeEntity.getName());
         challengeDTO.setNeed(challengeEntity.getNeed());
         challengeDTO.setDays(challengeEntity.getDays());
-        challengeDTO.setStart_date(challengeEntity.getStart_date());
-        challengeDTO.setFinish_date(challengeEntity.getFinish_date());
+        challengeDTO.setStartDate(challengeEntity.getStartDate());
+
         return challengeDTO;
     }
 
@@ -37,12 +35,12 @@ public class ChallengeDTO {
         this.id = id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public ClientDTO getClientDTO() {
+        return clientDTO;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setClientDTO(ClientDTO clientDTO) {
+        this.clientDTO = clientDTO;
     }
 
     public String getName() {
@@ -69,19 +67,12 @@ public class ChallengeDTO {
         this.days = days;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getFinish_date() {
-        return finish_date;
-    }
-
-    public void setFinish_date(Date finish_date) {
-        this.finish_date = finish_date;
-    }
 }

@@ -1,10 +1,10 @@
 package ru.vsu.cs.lachugin.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class RepetitionEntity {
     private Long id;
-    private Long challenge_id;
+    private ChallengeEntity challengeEntity;
     private Long count;
     private Date date;
 
@@ -16,12 +16,12 @@ public class RepetitionEntity {
         this.id = id;
     }
 
-    public Long getChallenge_id() {
-        return challenge_id;
+    public ChallengeEntity getChallengeEntity() {
+        return challengeEntity;
     }
 
-    public void setChallenge_id(Long challenge_id) {
-        this.challenge_id = challenge_id;
+    public void setChallengeEntity(ChallengeEntity challengeEntity) {
+        this.challengeEntity = challengeEntity;
     }
 
     public Long getCount() {

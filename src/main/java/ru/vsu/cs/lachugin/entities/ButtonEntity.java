@@ -2,7 +2,7 @@ package ru.vsu.cs.lachugin.entities;
 
 public class ButtonEntity {
     private Long id;
-    private Long challenge_id;
+    private ChallengeEntity challengeEntity;
     private String name;
     private Long num;
 
@@ -17,12 +17,12 @@ public class ButtonEntity {
         this.id = id;
     }
 
-    public Long getChallenge_id() {
-        return challenge_id;
+    public ChallengeEntity getChallengeEntity() {
+        return challengeEntity;
     }
 
-    public void setChallenge_id(Long challenge_id) {
-        this.challenge_id = challenge_id;
+    public void setChallengeEntity(ChallengeEntity challengeEntity) {
+        this.challengeEntity = challengeEntity;
     }
 
     public String getName() {
