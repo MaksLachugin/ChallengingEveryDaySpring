@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Table(name = "buttons")
 public class ButtonEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "challenge_id")

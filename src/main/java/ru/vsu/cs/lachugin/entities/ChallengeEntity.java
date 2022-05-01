@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "challenge")
 public class ChallengeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "client_id")

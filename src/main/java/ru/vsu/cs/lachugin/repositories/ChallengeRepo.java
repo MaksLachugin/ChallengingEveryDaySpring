@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ChallengeRepo extends JpaRepository<ChallengeEntity, Long> {
 
-    List<ChallengeEntity> findAllByClientEntity(ClientEntity clientEntity);
+    List<ChallengeEntity> findAllByClient(ClientEntity clientEntity);
     List<ChallengeEntity> findAllByName(String name);
     List<ChallengeEntity> findAllByNeed(Long need);
     List<ChallengeEntity> findAllByDays(Long days);

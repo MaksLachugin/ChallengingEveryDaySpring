@@ -7,7 +7,7 @@ import java.sql.Date;
 @Table(name = "repetition")
 public class RepetitionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "challenge_id")
