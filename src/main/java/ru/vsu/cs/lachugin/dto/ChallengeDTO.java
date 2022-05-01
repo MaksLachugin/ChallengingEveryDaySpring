@@ -15,7 +15,7 @@ public class ChallengeDTO {
     public static ChallengeDTO toModel(ChallengeEntity challengeEntity) {
         ChallengeDTO challengeDTO = new ChallengeDTO();
         challengeDTO.setId(challengeEntity.getId());
-        challengeDTO.setClientDTO(ClientDTO.toModel(challengeEntity.getClientEntity()));
+        challengeDTO.setClientDTO(ClientDTO.toModel(challengeEntity.getClient()));
         challengeDTO.setName(challengeEntity.getName());
         challengeDTO.setNeed(challengeEntity.getNeed());
         challengeDTO.setDays(challengeEntity.getDays());

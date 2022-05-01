@@ -2,10 +2,22 @@ package ru.vsu.cs.lachugin.entities;
 
 import ru.vsu.cs.lachugin.services.ClientService;
 
+import javax.persistence.*;
+import java.util.List;
+@Entity
+@Table(name = "client")
 public class ClientEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "pass", nullable = false)
     private String pass;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+    private List<ChallengeEntity> challengeEntities;
+
 
     public Long getId() {
         return id;
@@ -29,6 +41,14 @@ public class ClientEntity {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public List<ChallengeEntity> getChallengeEntities() {
+        return challengeEntities;
+    }
+
+    public void setChallengeEntities(List<ChallengeEntity> challengeEntities) {
+        this.challengeEntities = challengeEntities;
     }
 
     public ClientEntity() {

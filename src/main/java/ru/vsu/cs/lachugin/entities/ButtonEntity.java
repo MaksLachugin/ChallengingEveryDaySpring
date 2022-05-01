@@ -1,9 +1,18 @@
 package ru.vsu.cs.lachugin.entities;
 
+import javax.persistence.*;
+@Entity
+@Table(name = "buttons")
 public class ButtonEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "challenge_id")
     private ChallengeEntity challengeEntity;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "num", nullable = false)
     private Long num;
 
     public ButtonEntity() {

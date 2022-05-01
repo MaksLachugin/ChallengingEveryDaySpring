@@ -1,14 +1,28 @@
 package ru.vsu.cs.lachugin.entities;
 
+import javax.persistence.*;
 import java.sql.Date;
-
+import java.util.List;
+@Entity
+@Table(name = "challenge")
 public class ChallengeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private ClientEntity clientEntity;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "need", nullable = false)
     private Long need;
+    @Column(name = "days", nullable = false)
     private Long days;
+    @Column(name = "start_date", nullable = false)
     private Date startDate;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challenge")
+    private List<RepetitionEntity> repetitionEntities;
 
     public ChallengeEntity() {
     }
@@ -21,12 +35,12 @@ public class ChallengeEntity {
         this.id = id;
     }
 
-    public ClientEntity getClientEntity() {
-        return clientEntity;
+    public ClientEntity getClient() {
+        return client;
     }
 
-    public void setClientEntity(ClientEntity clientEntity) {
-        this.clientEntity = clientEntity;
+    public void setClient(ClientEntity client) {
+        this.client = client;
     }
 
     public String getName() {

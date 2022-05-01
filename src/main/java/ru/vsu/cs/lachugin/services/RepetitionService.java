@@ -1,6 +1,8 @@
 package ru.vsu.cs.lachugin.services;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vsu.cs.lachugin.dto.RepetitionDTO;
+import ru.vsu.cs.lachugin.entities.ChallengeEntity;
 import ru.vsu.cs.lachugin.entities.ClientEntity;
 import ru.vsu.cs.lachugin.entities.RepetitionEntity;
 
@@ -16,4 +18,11 @@ public interface RepetitionService {
     Long delete(Long id) throws Exception;
 
     List<RepetitionDTO> getAll() throws Exception;
+
+    List<RepetitionDTO> getAllByChallenge(ChallengeEntity challengeEntity) throws Exception;
+
+
+    List<RepetitionDTO> getAllByClient(ClientEntity clientEntity) throws Exception;
+
+
 }

@@ -14,7 +14,7 @@ public class RepetitionDTO {
         RepetitionDTO repetitionDTO = new RepetitionDTO();
 
         repetitionDTO.setId(repetitionEntity.getId());
-        repetitionDTO.setChallengeDTO(ChallengeDTO.toModel(repetitionEntity.getChallengeEntity()));
+        repetitionDTO.setChallengeDTO(ChallengeDTO.toModel(repetitionEntity.getChallenge()));
         repetitionDTO.setCount(repetitionEntity.getCount());
         repetitionDTO.setDate(repetitionEntity.getDate());
 
