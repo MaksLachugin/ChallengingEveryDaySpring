@@ -1,7 +1,6 @@
 package ru.vsu.cs.lachugin.services;
 
 import ru.vsu.cs.lachugin.dto.ChallengeDTO;
-import ru.vsu.cs.lachugin.dto.ClientDTO;
 import ru.vsu.cs.lachugin.entities.ChallengeEntity;
 import ru.vsu.cs.lachugin.entities.ClientEntity;
 

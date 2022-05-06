@@ -8,7 +8,6 @@ import ru.vsu.cs.lachugin.entities.ChallengeEntity;
 import ru.vsu.cs.lachugin.entities.ClientEntity;
 import ru.vsu.cs.lachugin.entities.RepetitionEntity;
 import ru.vsu.cs.lachugin.repositories.ChallengeRepo;
-import ru.vsu.cs.lachugin.repositories.ClientRepo;
 import ru.vsu.cs.lachugin.repositories.RepetitionRepo;
 import ru.vsu.cs.lachugin.services.RepetitionService;
 

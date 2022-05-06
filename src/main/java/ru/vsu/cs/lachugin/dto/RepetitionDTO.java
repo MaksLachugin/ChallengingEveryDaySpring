@@ -1,7 +1,6 @@
 package ru.vsu.cs.lachugin.dto;
 
 import ru.vsu.cs.lachugin.entities.RepetitionEntity;
-
 import java.sql.Date;
 
 public class RepetitionDTO {

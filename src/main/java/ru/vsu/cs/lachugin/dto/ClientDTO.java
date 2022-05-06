@@ -1,6 +1,5 @@
 package ru.vsu.cs.lachugin.dto;
 
-import ru.vsu.cs.lachugin.entities.ChallengeEntity;
 import ru.vsu.cs.lachugin.entities.ClientEntity;
 
 public class ClientDTO {

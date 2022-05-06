@@ -1,6 +1,5 @@
 package ru.vsu.cs.lachugin.services;
 
-import org.springframework.transaction.annotation.Transactional;
 import ru.vsu.cs.lachugin.dto.RepetitionDTO;
 import ru.vsu.cs.lachugin.entities.ChallengeEntity;
 import ru.vsu.cs.lachugin.entities.ClientEntity;

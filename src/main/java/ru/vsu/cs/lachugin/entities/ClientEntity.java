@@ -1,6 +1,5 @@
 package ru.vsu.cs.lachugin.entities;
 
-import ru.vsu.cs.lachugin.services.ClientService;
 
 import javax.persistence.*;
 import java.util.List;

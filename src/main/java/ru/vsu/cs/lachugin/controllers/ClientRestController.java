@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.lachugin.entities.ClientEntity;
-import ru.vsu.cs.lachugin.entities.RepetitionEntity;
 import ru.vsu.cs.lachugin.services.ClientService;
-import ru.vsu.cs.lachugin.services.RepetitionService;
 @RestController
 @RequestMapping("/api/clients")
 public class ClientRestController {

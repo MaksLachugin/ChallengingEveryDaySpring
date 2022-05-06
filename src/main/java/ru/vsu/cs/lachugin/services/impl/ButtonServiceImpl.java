@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vsu.cs.lachugin.dto.ButtonDTO;
-import ru.vsu.cs.lachugin.dto.ClientDTO;
 import ru.vsu.cs.lachugin.entities.ButtonEntity;
 import ru.vsu.cs.lachugin.entities.ChallengeEntity;
 import ru.vsu.cs.lachugin.repositories.ButtonRepo;
 import ru.vsu.cs.lachugin.repositories.ChallengeRepo;
-import ru.vsu.cs.lachugin.repositories.ClientRepo;
 import ru.vsu.cs.lachugin.services.ButtonService;
 
 import java.util.ArrayList;

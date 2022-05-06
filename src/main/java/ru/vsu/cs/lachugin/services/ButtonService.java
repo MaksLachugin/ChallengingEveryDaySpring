@@ -1,10 +1,8 @@
 package ru.vsu.cs.lachugin.services;
 
 import ru.vsu.cs.lachugin.dto.ButtonDTO;
-import ru.vsu.cs.lachugin.dto.ClientDTO;
 import ru.vsu.cs.lachugin.entities.ButtonEntity;
 import ru.vsu.cs.lachugin.entities.ChallengeEntity;
-import ru.vsu.cs.lachugin.entities.ClientEntity;
 
 import java.util.List;
 
