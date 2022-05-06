@@ -5,9 +5,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.lachugin.models.Button;
-
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
