@@ -12,11 +12,11 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/repetitions")
-public class RepetitionRestController {
+public class RepetitionController {
     private final RepetitionDAO repetitionDAO;
 
     @Autowired
-    public RepetitionRestController(RepetitionDAO repetitionDAO) {
+    public RepetitionController(RepetitionDAO repetitionDAO) {
         this.repetitionDAO = repetitionDAO;
     }
 

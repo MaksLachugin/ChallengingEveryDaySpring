@@ -12,11 +12,11 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/buttons")
-public class ButtonRestController {
+public class ButtonController {
     private final ButtonDAO buttonDAO;
 
     @Autowired
-    public ButtonRestController(ButtonDAO buttonDAO) {
+    public ButtonController(ButtonDAO buttonDAO) {
         this.buttonDAO = buttonDAO;
     }
 

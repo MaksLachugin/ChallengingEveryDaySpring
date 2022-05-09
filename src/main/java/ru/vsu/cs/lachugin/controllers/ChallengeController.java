@@ -5,21 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.lachugin.dao.ButtonDAO;
 import ru.vsu.cs.lachugin.dao.ChallengeDAO;
-import ru.vsu.cs.lachugin.models.Button;
 import ru.vsu.cs.lachugin.models.Challenge;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/challenges")
-public class ChallengeRestController {
+public class ChallengeController {
 
     private final ChallengeDAO challengeDAO;
 
     @Autowired
-    public ChallengeRestController(ChallengeDAO challengeDAO) {
+    public ChallengeController(ChallengeDAO challengeDAO) {
         this.challengeDAO = challengeDAO;
     }
 

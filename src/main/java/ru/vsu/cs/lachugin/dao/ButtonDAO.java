@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.lachugin.models.Button;
+
 import java.util.List;
 
 @Component
@@ -27,17 +28,23 @@ public class ButtonDAO {
                 new Object[]{id}, new BeanPropertyRowMapper<>(Button.class)).stream().findAny().orElse(null);
     }
 
-    public void save(Button button) {
+    public Button save(Button button) {
         jdbcTemplate.update("INSERT INTO \"Button\" VALUES (DEFAULT, ?, ?, ?)",
                 button.getChallenge_id(), button.getName(), button.getNum());
+        return jdbcTemplate.query("SELECT * FROM \"Button\" Where challenge_id=? AND name=? AND num=?",
+                new Object[]{button.getChallenge_id(), button.getName(), button.getNum()}, new BeanPropertyRowMapper<>(Button.class)).stream().findAny().orElse(null);
     }
 
-    public void update(int id, Button updatedButton) {
+    public Button update(int id, Button updatedButton) {
         jdbcTemplate.update("UPDATE  \"Button\" Set challenge_id=?,name=?,  num=? where id=?",
                 updatedButton.getChallenge_id(), updatedButton.getName(), updatedButton.getNum(), id);
+        return show(id);
     }
 
-    public void delete(int id) {
+    public Button delete(int id) {
+        Button button = show(id);
         jdbcTemplate.update("DELETE FROM \"Button\" where id=?", id);
+        return button;
     }
+
 }
