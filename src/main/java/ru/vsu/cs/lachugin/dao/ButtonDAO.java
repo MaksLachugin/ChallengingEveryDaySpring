@@ -18,7 +18,6 @@ public class ButtonDAO {
     }
 
     public List<Button> index() {
-
         return jdbcTemplate.query("SELECT * FROM \"Button\"",
                 new BeanPropertyRowMapper<>(Button.class));
     }
