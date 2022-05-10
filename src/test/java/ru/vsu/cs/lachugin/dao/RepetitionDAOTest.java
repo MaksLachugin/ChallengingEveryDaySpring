@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import ru.vsu.cs.lachugin.models.Challenge;
+import ru.vsu.cs.lachugin.models.Repetition;
 
 import javax.sql.DataSource;
 import java.sql.Date;
@@ -14,8 +14,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ChallengeDAOTest {
-    private final IDAO<Challenge> dao = new ChallengeDAO(jdbcTemplate());
+public class RepetitionDAOTest {
+    private final IDAO<Repetition> dao = new RepetitionDAO(jdbcTemplate());
 
     private DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -30,7 +30,7 @@ public class ChallengeDAOTest {
         return new JdbcTemplate(dataSource());
     }
 
-    public IDAO<Challenge> getDao() {
+    public IDAO<Repetition> getDao() {
         return dao;
     }
 
@@ -40,16 +40,14 @@ public class ChallengeDAOTest {
         dao.clean();
     }
 
-    public List<Challenge> createModels(int count) {
-        List<Challenge> list = new ArrayList<>();
+    public List<Repetition> createModels(int count) {
+        List<Repetition> list = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
-            Challenge challenge = new Challenge();
-            challenge.setClient_id(i);
-            challenge.setName("Challenge: " + i);
-            challenge.setNeed(i * 10);
-            challenge.setDays(i*5);
-            challenge.setStart_date(new Date(2000+i,i%12, i%28));
-            list.add(challenge);
+            Repetition repetition = new Repetition();
+            repetition.setChallenge_id(i);
+            repetition.setCount(i*10);
+            repetition.setDate(new Date(2000+i,i%12, i%28));
+            list.add(repetition);
         }
         return list;
     }
@@ -63,7 +61,7 @@ public class ChallengeDAOTest {
         int count = 5;
         getDao().saveAll(createModels(count));
         //when
-        List<Challenge> actual = getDao().index();
+        List<Repetition> actual = getDao().index();
         //assert
         assertFalse(actual.isEmpty());
         assertEquals(count, actual.size());
@@ -73,12 +71,12 @@ public class ChallengeDAOTest {
     public void show() {
         //given
         int count = 5;
-        List<Challenge> list = createModels(count);
+        List<Repetition> list = createModels(count);
         getDao().saveAll(list);
-        Challenge f = list.get(4);
+        Repetition f = list.get(4);
         //when
         list = getDao().index();
-        Challenge actual = getDao().show(list.get(4).getId());
+        Repetition actual = getDao().show(list.get(4).getId());
         //assert
         assertNotNull(actual);
         f.setId(actual.getId());
@@ -89,10 +87,10 @@ public class ChallengeDAOTest {
     public void save() {
         //given
         int count = 1;
-        List<Challenge> list = createModels(count);
+        List<Repetition> list = createModels(count);
         getDao().save(list.get(0));
         //when
-        List<Challenge> actual = getDao().index();
+        List<Repetition> actual = getDao().index();
         //assert
         assertFalse(actual.isEmpty());
         assertEquals(count, actual.size());
@@ -106,12 +104,12 @@ public class ChallengeDAOTest {
         //given
         int count = 10;
         getDao().saveAll(createModels(count));
-        List<Challenge> actual = getDao().index();
+        List<Repetition> actual = getDao().index();
         int id = actual.get(5).getId();
-        Challenge b1 = actual.get(1);
+        Repetition b1 = actual.get(1);
         //when
         getDao().update(id, b1);
-        Challenge b2 = getDao().show(id);
+        Repetition b2 = getDao().show(id);
         b1.setId(b2.getId());
         //assert
         assertEquals(b1, b2);
@@ -121,13 +119,13 @@ public class ChallengeDAOTest {
     public void delete() {
         //given
         int count = 5;
-        List<Challenge> list = createModels(count);
+        List<Repetition> list = createModels(count);
         getDao().saveAll(list);
         //when
         list = getDao().index();
         int deletedId = list.get(4).getId();
         getDao().delete(deletedId);
-        Challenge actual = getDao().show(deletedId);
+        Repetition actual = getDao().show(deletedId);
         //assert
         assertNull(actual);
     }
@@ -139,7 +137,7 @@ public class ChallengeDAOTest {
         getDao().saveAll(createModels(count));
         //when
         getDao().clean();
-        List<Challenge> actual = getDao().index();
+        List<Repetition> actual = getDao().index();
         //assert
         assertTrue(actual.isEmpty());
     }
@@ -148,10 +146,10 @@ public class ChallengeDAOTest {
     public void saveAll() {
         //given
         int count = 5;
-        List<Challenge> list = createModels(count);
+        List<Repetition> list = createModels(count);
 
         //when
-        List<Challenge> actual = getDao().saveAll(list);
+        List<Repetition> actual = getDao().saveAll(list);
         //assert
         assertFalse(actual.isEmpty());
         assertEquals(count, actual.size());
