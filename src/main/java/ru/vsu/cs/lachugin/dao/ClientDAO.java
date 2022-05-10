@@ -28,17 +28,22 @@ public class ClientDAO {
                 new Object[]{id}, new BeanPropertyRowMapper<>(Client.class)).stream().findAny().orElse(null);
     }
 
-    public void save(Client client) {
+    public Client save(Client client) {
         jdbcTemplate.update("INSERT INTO \"Client\" VALUES (DEFAULT, ?, ?)",
                 client.getName(), client.getPass());
+        return jdbcTemplate.query("SELECT * FROM \"Client\" Where name=? AND pass=?",
+                new Object[]{client.getName(), client.getPass()}, new BeanPropertyRowMapper<>(Client.class)).stream().findAny().orElse(null);
     }
 
-    public void update(int id, Client updatedClient) {
+    public Client update(int id, Client updatedClient) {
         jdbcTemplate.update("UPDATE  \"Client\" Set name=?,pass=? where id=?",
                 updatedClient.getName(), updatedClient.getPass(), id);
+        return show(id);
     }
 
-    public void delete(int id) {
+    public Client delete(int id) {
+        Client client = show(id);
         jdbcTemplate.update("DELETE FROM \"Client\" where id=?", id);
+        return client;
     }
 }
