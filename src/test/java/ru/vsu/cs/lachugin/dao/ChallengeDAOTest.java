@@ -5,16 +5,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import ru.vsu.cs.lachugin.models.Button;
+import ru.vsu.cs.lachugin.models.Challenge;
+import ru.vsu.cs.lachugin.models.Challenge;
 
 import javax.sql.DataSource;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ButtonDAOTest {
-    private final IDAO<Button> dao = new ButtonDAO(jdbcTemplate());
+public class ChallengeDAOTest {
+    private final IDAO<Challenge> dao = new ChallengeDAO(jdbcTemplate());
 
     private DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -29,7 +32,7 @@ public class ButtonDAOTest {
         return new JdbcTemplate(dataSource());
     }
 
-    public IDAO<Button> getDao() {
+    public IDAO<Challenge> getDao() {
         return dao;
     }
 
@@ -39,14 +42,16 @@ public class ButtonDAOTest {
         dao.clean();
     }
 
-    public List<Button> createModels(int count) {
-        List<Button> list = new ArrayList<>();
+    public List<Challenge> createModels(int count) {
+        List<Challenge> list = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
-            Button button = new Button();
-            button.setChallenge_id(i);
-            button.setName("Button: " + i);
-            button.setNum(i * 10);
-            list.add(button);
+            Challenge challenge = new Challenge();
+            challenge.setClient_id(i);
+            challenge.setName("Challenge: " + i);
+            challenge.setNeed(i * 10);
+            challenge.setDays(i*5);
+            challenge.setStart_date(new Date(2000+i,i%12, i%28));
+            list.add(challenge);
         }
         return list;
     }
@@ -60,7 +65,7 @@ public class ButtonDAOTest {
         int count = 5;
         getDao().saveAll(createModels(count));
         //when
-        List<Button> actual = getDao().index();
+        List<Challenge> actual = getDao().index();
         //assert
         assertFalse(actual.isEmpty());
         assertEquals(count, actual.size());
@@ -70,12 +75,12 @@ public class ButtonDAOTest {
     public void show() {
         //given
         int count = 5;
-        List<Button> list = createModels(count);
+        List<Challenge> list = createModels(count);
         getDao().saveAll(list);
-        Button f = list.get(4);
+        Challenge f = list.get(4);
         //when
         list = getDao().index();
-        Button actual = getDao().show(list.get(4).getId());
+        Challenge actual = getDao().show(list.get(4).getId());
         //assert
         assertNotNull(actual);
         f.setId(actual.getId());
@@ -86,10 +91,10 @@ public class ButtonDAOTest {
     public void save() {
         //given
         int count = 1;
-        List<Button> list = createModels(count);
+        List<Challenge> list = createModels(count);
         getDao().save(list.get(0));
         //when
-        List<Button> actual = getDao().index();
+        List<Challenge> actual = getDao().index();
         //assert
         assertFalse(actual.isEmpty());
         assertEquals(count, actual.size());
@@ -103,12 +108,12 @@ public class ButtonDAOTest {
         //given
         int count = 10;
         getDao().saveAll(createModels(count));
-        List<Button> actual = getDao().index();
+        List<Challenge> actual = getDao().index();
         int id = actual.get(5).getId();
-        Button b1 = actual.get(1);
+        Challenge b1 = actual.get(1);
         //when
         getDao().update(id, b1);
-        Button b2 = getDao().show(id);
+        Challenge b2 = getDao().show(id);
         b1.setId(b2.getId());
         //assert
         assertEquals(b1, b2);
@@ -118,13 +123,13 @@ public class ButtonDAOTest {
     public void delete() {
         //given
         int count = 5;
-        List<Button> list = createModels(count);
+        List<Challenge> list = createModels(count);
         getDao().saveAll(list);
         //when
         list = getDao().index();
         int deletedId = list.get(4).getId();
         getDao().delete(deletedId);
-        Button actual = getDao().show(deletedId);
+        Challenge actual = getDao().show(deletedId);
         //assert
         assertNull(actual);
     }
@@ -136,7 +141,7 @@ public class ButtonDAOTest {
         getDao().saveAll(createModels(count));
         //when
         getDao().clean();
-        List<Button> actual = getDao().index();
+        List<Challenge> actual = getDao().index();
         //assert
         assertTrue(actual.isEmpty());
     }
@@ -145,10 +150,10 @@ public class ButtonDAOTest {
     public void saveAll() {
         //given
         int count = 5;
-        List<Button> list = createModels(count);
+        List<Challenge> list = createModels(count);
 
         //when
-        List<Button> actual = getDao().saveAll(list);
+        List<Challenge> actual = getDao().saveAll(list);
         //assert
         assertFalse(actual.isEmpty());
         assertEquals(count, actual.size());

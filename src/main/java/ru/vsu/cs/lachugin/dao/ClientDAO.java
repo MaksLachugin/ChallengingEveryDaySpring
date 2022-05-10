@@ -5,60 +5,56 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.lachugin.models.Button;
+import ru.vsu.cs.lachugin.models.Challenge;
 import ru.vsu.cs.lachugin.models.Client;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ClientDAO {
+public class ClientDAO extends BaseDAO<Client> implements IDAO<Client> {
 
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
     public ClientDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        super(jdbcTemplate, "Client", Client.class);
     }
 
-    public List<Client> index() {
-        return jdbcTemplate.query("SELECT * FROM \"Client\"",
-                new BeanPropertyRowMapper<>(Client.class));
+    @Override
+    public Object[] getParams(Client client) {
+        return new Object[]{client.getName(), client.getPass()};
     }
 
-    public Client show(int id) {
-        return jdbcTemplate.query("SELECT * FROM \"Client\" Where id=?",
-                new Object[]{id}, new BeanPropertyRowMapper<>(Client.class)).stream().findAny().orElse(null);
+    @Override
+    public int[] getParamsTypes() {
+        return new int[]{Types.VARCHAR, Types.VARCHAR};
     }
 
-    public Client save(Client client) {
-        jdbcTemplate.update("INSERT INTO \"Client\" VALUES (DEFAULT, ?, ?)",
-                client.getName(), client.getPass());
-        return jdbcTemplate.query("SELECT * FROM \"Client\" Where name=? AND pass=?",
-                new Object[]{client.getName(), client.getPass()}, new BeanPropertyRowMapper<>(Client.class)).stream().findAny().orElse(null);
+    @Override
+    public Object[] getParamsWithId(Client Client, int id) {
+        Object[] objects = getParams(Client);
+        return new Object[]{objects[0], objects[1], id};
+
     }
 
-    public Client update(int id, Client updatedClient) {
-        jdbcTemplate.update("UPDATE  \"Client\" Set name=?,pass=? where id=?",
-                updatedClient.getName(), updatedClient.getPass(), id);
-        return show(id);
+    @Override
+    public int[] getParamsTypesWithId() {
+        int[] paramsTypes = getParamsTypes();
+        return new int[]{paramsTypes[0], paramsTypes[1], Types.INTEGER};
+
     }
 
-    public Client delete(int id) {
-        Client client = show(id);
-        jdbcTemplate.update("DELETE FROM \"Client\" where id=?", id);
-        return client;
+    @Override
+    public String getFormatForDefaultValues() {
+        return "(DEFAULT, ?, ?)";
     }
 
-    public void clean() {
-        jdbcTemplate.update("DELETE FROM \"Client\" WHERE id >= 1");
+    @Override
+    public String getWhere() {
+        return "name=? AND pass=?";
     }
 
-    public List<Client> saveAll(List<Client> clients) {
-        List<Client> result = new ArrayList<>();
-        for (Client client : clients
-        ) {
-            result.add(save((client)));
-        }
-        return result;
+    @Override
+    public String getSet() {
+        return "name=?, pass=?";
     }
 }

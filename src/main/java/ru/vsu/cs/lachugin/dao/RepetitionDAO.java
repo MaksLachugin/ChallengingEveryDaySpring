@@ -5,56 +5,55 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.lachugin.models.Button;
+import ru.vsu.cs.lachugin.models.Challenge;
 import ru.vsu.cs.lachugin.models.Repetition;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class RepetitionDAO {
-
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
+public class RepetitionDAO extends BaseDAO<Repetition> implements IDAO<Repetition> {
     public RepetitionDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        super(jdbcTemplate, "Repetition", Repetition.class);
     }
 
-    public List<Repetition> index() {
-
-        return jdbcTemplate.query("SELECT * FROM \"Repetition\"", new BeanPropertyRowMapper<>(Repetition.class));
+    @Override
+    public Object[] getParams(Repetition repetition) {
+        return new Object[]{repetition.getChallenge_id(), repetition.getCount(), repetition.getDate()};
     }
 
-    public Repetition show(int id) {
-        return jdbcTemplate.query("SELECT * FROM \"Repetition\" Where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Repetition.class)).stream().findAny().orElse(null);
+    @Override
+    public int[] getParamsTypes() {
+        return new int[]{Types.INTEGER, Types.INTEGER, Types.DATE};
     }
 
-    public Repetition save(Repetition repetition) {
-        jdbcTemplate.update("INSERT INTO \"Repetition\" VALUES (DEFAULT, ?, ?, ?)", repetition.getChallenge_id(), repetition.getCount(), repetition.getDate());
-        return jdbcTemplate.query("SELECT * FROM \"Repetition\" Where challenge_id=? AND count=? AND date=?", new Object[]{repetition.getChallenge_id(), repetition.getCount(), repetition.getDate()}, new BeanPropertyRowMapper<>(Repetition.class)).stream().findAny().orElse(null);
+    @Override
+    public Object[] getParamsWithId(Repetition repetition, int id) {
+        Object[] objects = getParams(repetition);
+        return new Object[]{objects[0], objects[1], objects[2], id};
+
     }
 
-    public Repetition update(int id, Repetition updatedRepetition) {
-        jdbcTemplate.update("UPDATE  \"Repetition\" Set challenge_id=?, count=?, date=? where id=?", updatedRepetition.getChallenge_id(), updatedRepetition.getCount(), updatedRepetition.getDate(), id);
-        return show(id);
+    @Override
+    public int[] getParamsTypesWithId() {
+        int[] paramsTypes = getParamsTypes();
+        return new int[]{paramsTypes[0], paramsTypes[1], paramsTypes[2], Types.INTEGER};
+
     }
 
-    public Repetition delete(int id) {
-        Repetition repetition = show(id);
-        jdbcTemplate.update("DELETE FROM \"Repetition\" where id=?", id);
-        return repetition;
+    @Override
+    public String getFormatForDefaultValues() {
+        return "(DEFAULT, ?, ?, ?)";
     }
 
-    public void clean() {
-        jdbcTemplate.update("DELETE FROM \"Repetition\" WHERE id >= 1");
+    @Override
+    public String getWhere() {
+        return "challenge_id=? AND count=? AND date=?";
     }
 
-    public List<Repetition> saveAll(List<Repetition> repetitions) {
-        List<Repetition> result = new ArrayList<>();
-        for (Repetition repetition : repetitions
-        ) {
-            result.add(save((repetition)));
-        }
-        return result;
+    @Override
+    public String getSet() {
+        return "challenge_id=?, count=?, date=?";
     }
 }

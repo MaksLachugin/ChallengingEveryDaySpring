@@ -5,6 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.Objects;
 
 public class Challenge extends BaseModel{
     private int id;
@@ -70,4 +71,28 @@ public class Challenge extends BaseModel{
         this.start_date = start_date;
     }
 
+    @Override
+    public String toString() {
+        return "Challenge{" +
+                "id=" + id +
+                ", client_id=" + client_id +
+                ", name='" + name + '\'' +
+                ", need=" + need +
+                ", days=" + days +
+                ", start_date=" + start_date +
+                '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Challenge challenge = (Challenge) o;
+        return id == challenge.id && client_id == challenge.client_id && need == challenge.need && days == challenge.days && Objects.equals(name, challenge.name) && Objects.equals(start_date, challenge.start_date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, client_id, name, need, days, start_date);
+    }
+}
