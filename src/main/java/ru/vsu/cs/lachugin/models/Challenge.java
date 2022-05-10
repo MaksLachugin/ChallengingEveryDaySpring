@@ -6,35 +6,35 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 
-public class Challenge {
-    private Long id;
-    private Long client_id;
+public class Challenge extends BaseModel{
+    private int id;
+    private int client_id;
     @NotEmpty(message = "the name of the Challenge should be")
     @Size(min = 2, max = 50, message = "The name of the Challenge must be from 2 to 50 characters.")
     private String name;
     @NotNull(message = "The number of repetitions should be")
     @Min(value = 1, message = "The number of repetitions must be greater than zero")
-    private Long need;
-    private Long days;
+    private int need;
+    private int days;
     private Date start_date;
 
 
     public Challenge() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getClient_id() {
+    public int getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(Long client_id) {
+    public void setClient_id(int client_id) {
         this.client_id = client_id;
     }
 
@@ -46,19 +46,19 @@ public class Challenge {
         this.name = name;
     }
 
-    public Long getNeed() {
+    public int getNeed() {
         return need;
     }
 
-    public void setNeed(Long need) {
+    public void setNeed(int need) {
         this.need = need;
     }
 
-    public Long getDays() {
+    public int getDays() {
         return days;
     }
 
-    public void setDays(Long days) {
+    public void setDays(int days) {
         this.days = days;
     }
 

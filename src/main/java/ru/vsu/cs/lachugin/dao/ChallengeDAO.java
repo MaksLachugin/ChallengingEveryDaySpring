@@ -1,59 +1,56 @@
 package ru.vsu.cs.lachugin.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.vsu.cs.lachugin.models.Button;
 import ru.vsu.cs.lachugin.models.Challenge;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ChallengeDAO {
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
+public class ChallengeDAO extends BaseDAO<Challenge> implements IDAO<Challenge> {
     public ChallengeDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        super(jdbcTemplate, "Challenge", Challenge.class);
     }
 
-    public List<Challenge> index() {
-
-        return jdbcTemplate.query("SELECT * FROM \"Challenge\"", new BeanPropertyRowMapper<>(Challenge.class));
+    @Override
+    public Object[] getParams(Challenge challenge) {
+        return new Object[]{challenge.getClient_id(), challenge.getName(), challenge.getNeed(), challenge.getDays(), challenge.getStart_date()};
     }
 
-    public Challenge show(int id) {
-        return jdbcTemplate.query("SELECT * FROM \"Challenge\" Where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Challenge.class)).stream().findAny().orElse(null);
+    @Override
+    public int[] getParamsTypes() {
+        return new int[]{Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.INTEGER, Types.DATE};
     }
 
-    public Challenge save(Challenge challenge) {
-        jdbcTemplate.update("INSERT INTO \"Challenge\" VALUES (DEFAULT, ?, ?, ?, ?, ?)", challenge.getClient_id(), challenge.getName(), challenge.getNeed(), challenge.getDays(), challenge.getStart_date());
-        return jdbcTemplate.query("SELECT * FROM \"Challenge\" Where client_id=? AND name=? AND need=? AND days=? AND start_date=?", new Object[]{challenge.getClient_id(), challenge.getName(), challenge.getNeed(), challenge.getDays(), challenge.getStart_date()}, new BeanPropertyRowMapper<>(Challenge.class)).stream().findAny().orElse(null);
+    @Override
+    public Object[] getParamsWithId(Challenge challenge, int id) {
+        Object[] objects = getParams(challenge);
+        return new Object[]{objects[0], objects[1], objects[2], objects[3], objects[4], id};
+
     }
 
-    public Challenge update(int id, Challenge updatedChallenge) {
-        jdbcTemplate.update("UPDATE  \"Challenge\" Set client_id=?, name=?,  need=?, days=?, start_date=? where id=?", updatedChallenge.getClient_id(), updatedChallenge.getName(), updatedChallenge.getNeed(), updatedChallenge.getDays(), updatedChallenge.getStart_date(), id);
-        return show(id);
+    @Override
+    public int[] getParamsTypesWithId() {
+        int[] paramsTypes = getParamsTypes();
+        return new int[]{paramsTypes[0], paramsTypes[1], paramsTypes[2], paramsTypes[3], paramsTypes[4], Types.INTEGER};
+
     }
 
-    public Challenge delete(int id) {
-        Challenge challenge = show(id);
-        jdbcTemplate.update("DELETE FROM \"Challenge\" where id=?", id);
-        return challenge;
+    @Override
+    public String getFormatForDefaultValues() {
+        return "(DEFAULT, ?, ?, ?, ?, ?)";
     }
 
-    public void clean() {
-        jdbcTemplate.update("DELETE FROM \"Challenge\" WHERE id >= 1");
+    @Override
+    public String getWhere() {
+        return "client_id=? AND name=? AND need=? AND days=? AND start_date=?";
     }
 
-    public List<Challenge> saveAll(List<Challenge> challenges) {
-        List<Challenge> result = new ArrayList<>();
-        for (Challenge challenge : challenges
-        ) {
-            result.add(save((challenge)));
-        }
-        return result;
+    @Override
+    public String getSet() {
+        return "client_id=?, name=?,  need=?, days=?, start_date=?";
     }
 }
