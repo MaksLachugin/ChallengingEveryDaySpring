@@ -20,26 +20,26 @@ public class RepetitionDAO {
 
     public List<Repetition> index() {
 
-        return jdbcTemplate.query("SELECT * FROM \"Repetition\"",
-                new BeanPropertyRowMapper<>(Repetition.class));
+        return jdbcTemplate.query("SELECT * FROM \"Repetition\"", new BeanPropertyRowMapper<>(Repetition.class));
     }
 
     public Repetition show(int id) {
-        return jdbcTemplate.query("SELECT * FROM \"Repetition\" Where id=?",
-                new Object[]{id}, new BeanPropertyRowMapper<>(Repetition.class)).stream().findAny().orElse(null);
+        return jdbcTemplate.query("SELECT * FROM \"Repetition\" Where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Repetition.class)).stream().findAny().orElse(null);
     }
 
-    public void save(Repetition repetition) {
-        jdbcTemplate.update("INSERT INTO \"Repetition\" VALUES (DEFAULT, ?, ?, ?)",
-                repetition.getChallenge_id(), repetition.getCount(), repetition.getDate());
+    public Repetition save(Repetition repetition) {
+        jdbcTemplate.update("INSERT INTO \"Repetition\" VALUES (DEFAULT, ?, ?, ?)", repetition.getChallenge_id(), repetition.getCount(), repetition.getDate());
+        return jdbcTemplate.query("SELECT * FROM \"Repetition\" Where challenge_id=? AND count=? AND date=?", new Object[]{repetition.getChallenge_id(), repetition.getCount(), repetition.getDate()}, new BeanPropertyRowMapper<>(Repetition.class)).stream().findAny().orElse(null);
     }
 
-    public void update(int id, Repetition updatedRepetition) {
-        jdbcTemplate.update("UPDATE  \"Repetition\" Set challenge_id=?, count=?, date=? where id=?",
-                updatedRepetition.getChallenge_id(), updatedRepetition.getCount(), updatedRepetition.getDate(), id);
+    public Repetition update(int id, Repetition updatedRepetition) {
+        jdbcTemplate.update("UPDATE  \"Repetition\" Set challenge_id=?, count=?, date=? where id=?", updatedRepetition.getChallenge_id(), updatedRepetition.getCount(), updatedRepetition.getDate(), id);
+        return show(id);
     }
 
-    public void delete(int id) {
+    public Repetition delete(int id) {
+        Repetition repetition = show(id);
         jdbcTemplate.update("DELETE FROM \"Repetition\" where id=?", id);
+        return repetition;
     }
 }
