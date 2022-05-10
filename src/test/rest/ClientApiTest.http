@@ -1,0 +1,23 @@
+GET http://localhost:8080/ChallengingEveryDaySpring/api/clients
+###
+
+POST http://localhost:8080/ChallengingEveryDaySpring/api/clients
+Content-Type: application/json
+
+{
+  "name": "TuPaK",
+  "pass": "YmNaK"
+}
+
+###
+
+PUT http://localhost:8080/ChallengingEveryDaySpring/api/clients/6
+Content-Type: application/json
+
+{
+  "name": "Otchen TuPaK",
+  "pass": "Ne otchen YmNaK"
+}
+
+###
+DELETE http://localhost:8080/ChallengingEveryDaySpring/api/clients/6

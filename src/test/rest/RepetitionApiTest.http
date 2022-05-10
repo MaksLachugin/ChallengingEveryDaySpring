@@ -1,0 +1,25 @@
+GET http://localhost:8080/ChallengingEveryDaySpring/api/repetitions
+###
+
+POST http://localhost:8080/ChallengingEveryDaySpring/api/repetitions
+Content-Type: application/json
+
+{
+  "challenge_id": 5000,
+  "count": 500,
+  "date": 1645197000000
+}
+
+###
+
+PUT http://localhost:8080/ChallengingEveryDaySpring/api/repetitions/6
+Content-Type: application/json
+
+{
+  "challenge_id": 50000,
+  "count": 5000,
+  "date": 1690197000000
+}
+
+###
+DELETE http://localhost:8080/ChallengingEveryDaySpring/api/repetitions/6
