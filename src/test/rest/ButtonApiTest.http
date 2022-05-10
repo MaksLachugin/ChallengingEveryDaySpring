@@ -5,14 +5,14 @@ POST http://localhost:8080/ChallengingEveryDaySpring/api/buttons
 Content-Type: application/json
 
 {
-  "challenge_id": 50000,
-  "name": "test1",
-  "num": 50000
+  "challenge_id": 50,
+  "name": "te",
+  "num": 50
 }
 
 ###
 
-PUT http://localhost:8080/ChallengingEveryDaySpring/api/buttons/10
+PUT http://localhost:8080/ChallengingEveryDaySpring/api/buttons/13
 Content-Type: application/json
 
 {
@@ -22,4 +22,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/ChallengingEveryDaySpring/api/buttons/10
+DELETE http://localhost:8080/ChallengingEveryDaySpring/api/buttons/13

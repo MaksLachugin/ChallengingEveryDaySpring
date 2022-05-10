@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.vsu.cs.lachugin.models.Button;
 import ru.vsu.cs.lachugin.models.Client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -45,5 +47,18 @@ public class ClientDAO {
         Client client = show(id);
         jdbcTemplate.update("DELETE FROM \"Client\" where id=?", id);
         return client;
+    }
+
+    public void clean() {
+        jdbcTemplate.update("DELETE FROM \"Client\" WHERE id >= 1");
+    }
+
+    public List<Client> saveAll(List<Client> clients) {
+        List<Client> result = new ArrayList<>();
+        for (Client client : clients
+        ) {
+            result.add(save((client)));
+        }
+        return result;
     }
 }

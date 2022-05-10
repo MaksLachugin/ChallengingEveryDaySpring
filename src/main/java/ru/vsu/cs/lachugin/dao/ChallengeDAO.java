@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.vsu.cs.lachugin.models.Button;
 import ru.vsu.cs.lachugin.models.Challenge;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -40,5 +42,18 @@ public class ChallengeDAO {
         Challenge challenge = show(id);
         jdbcTemplate.update("DELETE FROM \"Challenge\" where id=?", id);
         return challenge;
+    }
+
+    public void clean() {
+        jdbcTemplate.update("DELETE FROM \"Challenge\" WHERE id >= 1");
+    }
+
+    public List<Challenge> saveAll(List<Challenge> challenges) {
+        List<Challenge> result = new ArrayList<>();
+        for (Challenge challenge : challenges
+        ) {
+            result.add(save((challenge)));
+        }
+        return result;
     }
 }

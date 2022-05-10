@@ -6,44 +6,50 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.vsu.cs.lachugin.models.Button;
 
-import java.util.List;
+import java.sql.Types;
 
 @Component
-public class ButtonDAO {
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
+public class ButtonDAO extends BaseDAO<Button> implements IDAO<Button> {
     public ButtonDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        super(jdbcTemplate, "Button", Button.class);
     }
 
-    public List<Button> index() {
-        return jdbcTemplate.query("SELECT * FROM \"Button\"",
-                new BeanPropertyRowMapper<>(Button.class));
+    @Override
+    public Object[] getParams(Button button) {
+        return new Object[]{button.getChallenge_id(), button.getName(), button.getNum()};
     }
 
-    public Button show(int id) {
-        return jdbcTemplate.query("SELECT * FROM \"Button\" Where id=?",
-                new Object[]{id}, new BeanPropertyRowMapper<>(Button.class)).stream().findAny().orElse(null);
+    @Override
+    public int[] getParamsTypes() {
+        return new int[]{Types.INTEGER, Types.VARCHAR, Types.INTEGER};
     }
 
-    public Button save(Button button) {
-        jdbcTemplate.update("INSERT INTO \"Button\" VALUES (DEFAULT, ?, ?, ?)",
-                button.getChallenge_id(), button.getName(), button.getNum());
-        return jdbcTemplate.query("SELECT * FROM \"Button\" Where challenge_id=? AND name=? AND num=?",
-                new Object[]{button.getChallenge_id(), button.getName(), button.getNum()}, new BeanPropertyRowMapper<>(Button.class)).stream().findAny().orElse(null);
+    @Override
+    public Object[] getParamsWithId(Button button, int id) {
+        Object[] objects = getParams(button);
+        return new Object[]{objects[0], objects[1], objects[2], id};
+
     }
 
-    public Button update(int id, Button updatedButton) {
-        jdbcTemplate.update("UPDATE  \"Button\" Set challenge_id=?,name=?,  num=? where id=?",
-                updatedButton.getChallenge_id(), updatedButton.getName(), updatedButton.getNum(), id);
-        return show(id);
+    @Override
+    public int[] getParamsTypesWithId() {
+        int[] paramsTypes = getParamsTypes();
+        return new int[]{paramsTypes[0], paramsTypes[1], paramsTypes[2], Types.INTEGER};
+
     }
 
-    public Button delete(int id) {
-        Button button = show(id);
-        jdbcTemplate.update("DELETE FROM \"Button\" where id=?", id);
-        return button;
+    @Override
+    public String getFormatForDefaultValues() {
+        return "(DEFAULT, ?, ?, ?)";
     }
 
+    @Override
+    public String getWhere() {
+        return "challenge_id=? AND name=? AND num=?";
+    }
+
+    @Override
+    public String getSet() {
+        return "challenge_id=?, name=?,  num=?";
+    }
 }

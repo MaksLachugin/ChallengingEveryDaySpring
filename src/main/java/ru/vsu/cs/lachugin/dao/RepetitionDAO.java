@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.vsu.cs.lachugin.models.Button;
 import ru.vsu.cs.lachugin.models.Repetition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -41,5 +43,18 @@ public class RepetitionDAO {
         Repetition repetition = show(id);
         jdbcTemplate.update("DELETE FROM \"Repetition\" where id=?", id);
         return repetition;
+    }
+
+    public void clean() {
+        jdbcTemplate.update("DELETE FROM \"Repetition\" WHERE id >= 1");
+    }
+
+    public List<Repetition> saveAll(List<Repetition> repetitions) {
+        List<Repetition> result = new ArrayList<>();
+        for (Repetition repetition : repetitions
+        ) {
+            result.add(save((repetition)));
+        }
+        return result;
     }
 }

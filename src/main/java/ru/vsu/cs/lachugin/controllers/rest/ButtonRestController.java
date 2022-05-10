@@ -4,15 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.lachugin.dao.ButtonDAO;
+import ru.vsu.cs.lachugin.dao.IDAO;
 import ru.vsu.cs.lachugin.models.Button;
 
 @RestController
 @RequestMapping("/api/buttons")
 public class ButtonRestController {
-    private final ButtonDAO buttonDAO;
+    private final IDAO<Button> buttonDAO;
 
     @Autowired
-    public ButtonRestController(ButtonDAO buttonDAO) {
+    public ButtonRestController(IDAO<Button> buttonDAO) {
         this.buttonDAO = buttonDAO;
     }
 
